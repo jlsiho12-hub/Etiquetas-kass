@@ -1,0 +1,92 @@
+```html
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kass Moda - Oficial</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <style>
+        body { font-family: 'Montserrat', sans-serif; background: #e9ecef; display: flex; flex-direction: column; align-items: center; padding: 20px; }
+        .app-container { background: #fff; padding: 20px; border-radius: 12px; width: 320px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); margin-bottom: 20px; }
+        input { width: 100%; padding: 10px; margin-bottom: 10px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; font-family: 'Montserrat', sans-serif; font-weight: 700; }
+        button { border: none; padding: 12px; width: 100%; font-weight: 900; cursor: pointer; border-radius: 4px; margin-top: 5px; text-transform: uppercase; color: #fff; background: #000; }
+        
+        #label { width: 320px; background: #fff; padding: 20px; border: 2px solid #000; display: flex; flex-direction: column; align-items: center; box-sizing: border-box; }
+        .logo-img { max-width: 150px; margin-bottom: 15px; }
+        .product-name { font-size: 24px; font-weight: 900; text-transform: uppercase; width: 100%; text-align: left; }
+        .ref-row { display: flex; justify-content: space-between; align-items: center; width: 100%; margin: 10px 0; }
+        .ref { font-size: 14px; font-weight: 700; }
+        .talla-badge { background: #000; color: #fff; padding: 4px 10px; font-weight: 900; font-size: 12px; }
+        .footer-section { width: 100%; border-top: 3px solid #000; padding-top: 15px; display: flex; justify-content: space-between; align-items: center; }
+        .price { font-size: 40px; font-weight: 900; letter-spacing: -2px; }
+        .qr-area { display: flex; flex-direction: column; align-items: center; }
+        .qr-text { font-size: 9px; font-weight: 900; margin-top: 5px; }
+        .motivational-msg { font-size: 11px; font-weight: 900; margin-top: 15px; border-top: 2px dotted #000; padding-top: 10px; width: 100%; text-align: center; }
+    </style>
+</head>
+<body>
+
+<div class="app-container">
+    <input type="text" id="inName" value="PIJAMA KIMI">
+    <input type="text" id="inRef" value="KASS-847">
+    <input type="text" id="inTalla" value="M">
+    <input type="text" id="inPrice" value="$ 35.000">
+    <button onclick="generar()">ACTUALIZAR</button>
+    <button onclick="window.print()" style="background:#28a745;">IMPRIMIR</button>
+    <button onclick="prepararImagen()" style="background:#007bff;">DESCARGAR</button>
+</div>
+
+<div id="label">
+    <img src="https://i.imgur.com/8QoBw2z.png" class="logo-img" alt="Logo">
+    <div id="displayName" class="product-name">PIJAMA KIMI</div>
+    <div class="ref-row">
+        <div id="displayRef" class="ref">Ref: KASS-847</div>
+        <div id="displayTalla" class="talla-badge">TALLA: M</div>
+    </div>
+    <div class="footer-section">
+        <div class="price" id="displayPrice">$ 35.000</div>
+        <div class="qr-area">
+            <div id="qrcode"></div>
+            <div class="qr-text">MIRA MÁS AQUÍ</div>
+        </div>
+    </div>
+    <div class="motivational-msg" id="displayMsg">VÍSTETE DE AMOR PROPIO</div>
+</div>
+
+<script>
+    const mensajes = [
+        "VÍSTETE DE AMOR PROPIO", "HOY TE COMES EL MUNDO", "LA ACTITUD ES TU MEJOR PRENDA",
+        "PISA FUERTE, DEJA HUELLA", "ERES TU PROPIA MUSA", "QUE NADA APAGUE TU LUZ",
+        "INSPIRA, RESPIRA, SUSPIRA", "TU ESTILO ES TU PODER", "NACISTE PARA DESTACAR"
+    ];
+
+    new QRCode(document.getElementById("qrcode"), { text: "https://www.instagram.com/kass_moda_y_estilo", width: 60, height: 60 });
+    
+    function generar() {
+        document.getElementById('displayName').innerText = document.getElementById('inName').value;
+        document.getElementById('displayRef').innerText = "Ref: " + document.getElementById('inRef').value;
+        document.getElementById('displayTalla').innerText = "TALLA: " + document.getElementById('inTalla').value.toUpperCase();
+        document.getElementById('displayPrice').innerText = document.getElementById('inPrice').value;
+        
+        // Cambio aleatorio de mensaje
+        const msg = mensajes[Math.floor(Math.random() * mensajes.length)];
+        document.getElementById('displayMsg').innerText = msg;
+    }
+    
+    function prepararImagen() {
+        html2canvas(document.getElementById("label")).then(canvas => {
+            const link = document.createElement('a');
+            link.download = 'etiqueta_kass.png';
+            link.href = canvas.toDataURL();
+            link.click();
+        });
+    }
+</script>
+</body>
+</html>
+
+```
+      
